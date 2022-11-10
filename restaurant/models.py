@@ -22,6 +22,8 @@ class Dish(models.Model):
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "dish"
+        verbose_name_plural = "dishes"
 
     def __str__(self):
         return self.name
