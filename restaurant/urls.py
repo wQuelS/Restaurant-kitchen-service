@@ -6,6 +6,7 @@ from restaurant.views import index, DishTypeListView, DishTypeDetailView, DishLi
 
 urlpatterns = [
     path("", index, name="index"),
+    path("login/", index, name="index"),
     path(
         "categories/",
         DishTypeListView.as_view(),
