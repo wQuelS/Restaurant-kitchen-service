@@ -1,17 +1,69 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-  <h1>Restaurant Kitchen Service</h1>
-    <p>Welcome to our restaurant-management service!</p>
-    <h2>Dynamic content</h2>
-    <p>The Restaurant service has the following record counts:</p>
-    <ul>
-        <li><strong>Cooks:</strong> {{ num_cooks }}</li>
-        <li><strong>Dishes:</strong> {{ num_dishes }}</li>
-        <li><strong>Dish types:</strong> {{ num_dish_types }}</li>
-    </ul>
+  <main class="main-content">
+    <div class="container div-content">
+      <!--Section: Content-->
+     <section class="text-center">
 
-    <p>You have visited this page
-        {{ num_visits }} time{{ num_visits|pluralize }}.
-    </p>
+        <div class="row">
+          <div class="col-lg-4 col-md-12">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img style="display: block; -webkit-user-select: none; margin: auto; cursor: zoom-in; background-color: hsl(0, 0%, 90%); transition: background-color 300ms;"
+                     src="https://th.bing.com/th/id/OIP.bc03QBoPknp0UEE9LjWmcQHaFz?pid=ImgDet&rs=1"  class="img-fluid">
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Chiefs:</h5>
+                <p class="card-text">
+                  Amount of cooks: {{ num_cooks }}
+                </p>
+                <a href="#" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1309_1_1436535868.jpg" class="img-fluid">
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Dishes: </h5>
+                <p class="card-text">
+                  Number of dishes our chiefs cook: {{ num_dishes }}
+                </p>
+                <a href="#" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://th.bing.com/th/id/OIP.P-hPs_2R0dHrCEqRc-sBjQHaHa?pid=ImgDet&rs=1" class="img-fluid" />
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.55);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Categories of dishes</h5>
+                <p class="card-text">
+                  Number of dish categories: {{ num_dish_types }}
+                </p>
+                <a href="{% url 'restaurant:dish-type-list' %}" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p>
+  </main>
 {% endblock %}
