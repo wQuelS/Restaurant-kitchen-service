@@ -30,10 +30,6 @@
     </thead>
     <tbody>
       {% for dish in cook.dishes.all %}
-{#        <hr>#}
-{#        <p><strong>Dish: </strong> <a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a></p>#}
-{#        <p><strong>Dishtype:</strong> {{ dish.dish_type.name }}</p>#}
-{#        <p><strong>Id:</strong> {{dish.id}}</p>#}
         <tr>
           <td><a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a></td>
           <td><a href="{% url 'restaurant:dish-type-detail' pk=dish.dish_type.id %}">{{ dish.dish_type.name }}</a></td>
