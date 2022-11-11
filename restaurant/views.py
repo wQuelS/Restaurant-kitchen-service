@@ -25,7 +25,7 @@ def index(request):
     return render(request, "restaurant/index.html", context=context)
 
 
-class DishTypeList(generic.ListView):
+class DishTypeListView(generic.ListView):
     model = DishType
     context_object_name = "dish_type_list"
     template_name = "restaurant/dish_type_list.html"
@@ -33,8 +33,16 @@ class DishTypeList(generic.ListView):
     queryset = DishType.objects.all()
 
 
-class DishTypeDetail(generic.DetailView):
+class DishTypeDetailView(generic.DetailView):
     model = DishType
-    context_object_name = "dish_list"
+    context_object_name = "dish_type_list"
     template_name = "restaurant/dish_type_detail.html"
-    dish_list = DishType.objects.prefetch_related("dish_set").all()
+    queryset = DishType.objects.prefetch_related("dish_set").all()
+
+
+class DishListView(generic.ListView):
+    model = Dish
+    paginate_by = 5
+    context_object_name = "dish_list"
+    template_name = "restaurant/dish_list.html"
+    queryset = Dish.objects.select_related("dish_type")

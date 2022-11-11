@@ -7,7 +7,7 @@
       <i class="fa fa-plus-circle"></i> Add
     </a>
   </h1>
-  {% if dish_list.dish_set.all %}
+  {% if dish_type_list.dish_set.all %}
     <table class="table table-hover table-striped">
 
       <thead>
@@ -21,7 +21,7 @@
       <tbody>
 
 
-          {% for dish in dish_list.dish_set.all %}
+          {% for dish in dish_type_list.dish_set.all %}
             <tr>
 
               <td>
@@ -45,7 +45,7 @@
           {% endfor %}
 
     {% else %}
-      <p>There are no dishes in {{ dish_list.name }}</p>
+      <p>There are no dishes in {{ dish_type_list.name }}</p>
     {% endif %}
 
     </tbody>
