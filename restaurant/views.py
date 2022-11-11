@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from restaurant.models import Dish, DishType, Cook
@@ -38,6 +39,26 @@ class DishTypeDetailView(generic.DetailView):
     context_object_name = "dish_type_list"
     template_name = "restaurant/dish_type_detail.html"
     queryset = DishType.objects.prefetch_related("dish_set").all()
+
+
+class DishTypeCreateView(generic.CreateView):
+    model = DishType
+    template_name = "restaurant/dish_type_form.html"
+    fields = "__all__"
+    success_url = reverse_lazy("restaurant:dish-type-list")
+
+
+class DishTypeUpdateView(generic.UpdateView):
+    model = DishType
+    template_name = "restaurant/dish_type_form.html"
+    fields = "__all__"
+    success_url = reverse_lazy("restaurant:dish-type-list")
+
+
+class DishTypeDeleteView(generic.DeleteView):
+    model = DishType
+    success_url = reverse_lazy("restaurant:dish-type-list")
+    template_name = "restaurant/dish_type_confirm_delete.html"
 
 
 class DishListView(generic.ListView):
