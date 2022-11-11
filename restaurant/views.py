@@ -46,3 +46,7 @@ class DishListView(generic.ListView):
     context_object_name = "dish_list"
     template_name = "restaurant/dish_list.html"
     queryset = Dish.objects.select_related("dish_type")
+
+
+class DishDetailView(generic.DetailView):
+    model = Dish

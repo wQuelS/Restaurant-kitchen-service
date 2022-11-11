@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ dish.name }}
+    <a href="#" class="btn btn-outline-danger link-to-page float-right">
+      <i class="fa fa-trash" aria-hidden="true"></i> Delete
+    </a>
+
+    <a href="#" class="btn btn-outline-success link-to-page float-right">
+      <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+    </a>
+  </h1>
+  <p>Category of dish: {{ dish.dish_type}}</p>
+  <p>Description: {{ dish.description }}</p>
+  <h1>
+    Cooks:
+
+    {% if dish in user.dishes.all %}
+      <a href="#" class="btn btn-danger link-to-page">
+        I don't wanna cook it
+      </a>
+    {% else %}
+      <a href="#" class="btn btn-success link-to-page float-right">
+        Assign me to this dish
+      </a>
+    {% endif %}
+
+  </h1>
+
+  <ul style="background: #ffffff">
+    {% for cook in dish.cooks.all %}
+      <li><a href="#">{{ cook.first_name }} {{ cook.last_name }}</a> ({{ cook.username }})</li></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
