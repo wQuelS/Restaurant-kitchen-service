@@ -2,7 +2,7 @@
 {% block content %}
   <h1>
     Dishes
-    <a href="#" class="float-right btn btn-outline-primary add-button">
+    <a href="{% url 'restaurant:dish-create' %}" class="float-right btn btn-outline-primary add-button">
       <i class="fa fa-plus-circle"></i> Add
     </a>
   </h1>
@@ -15,6 +15,8 @@
         <th>Category</th>
         <th>Price</th>
         <th>Chief</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -37,11 +39,19 @@
                 {{ dish.price }}
               </td>
               <td>
-
                   {% for cook in dish.cooks.all %}
                     <a href="{% url 'restaurant:cook-detail' pk=cook.id %}">~{{ cook.username }}</a>
                   {% endfor %}
-
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-update' pk=dish.id %}" role="button" class="btn btn-outline-success">
+                  <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                </a>
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-delete' pk=dish.id %}" role="button" class="btn btn-outline-danger">
+                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </a>
               </td>
           </tr>
 
