@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    {{ dish_list.dish_set.count }} meal{{ dish_list.dish_set.count|pluralize }} in {{ dish_list.name }}
+
+  {% if dish_type_list.dish_set.all %}
+    <h1>
+    {{ dish_type_list.dish_set.count }} meal{{ dish_list_type.dish_set.count|pluralize }} in {{ dish_type_list.name }}
     <a href="#" class="float-right btn btn-outline-primary add-button">
       <i class="fa fa-plus-circle"></i> Add
     </a>
   </h1>
-  {% if dish_type_list.dish_set.all %}
     <table class="table table-hover table-striped">
 
       <thead>
@@ -46,6 +47,9 @@
 
     {% else %}
       <p>There are no dishes in {{ dish_type_list.name }}</p>
+      <a href="{% url 'restaurant:dish-type-list' %}" role="button" class="btn btn-outline-success">
+        <i class="fa fa-undo" aria-hidden="true"></i> Go Back
+      </a>
     {% endif %}
 
     </tbody>

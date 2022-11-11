@@ -17,7 +17,7 @@
     Cooks:
 
     {% if dish in user.dishes.all %}
-      <a href="#" class="btn btn-danger link-to-page">
+      <a href="#" class="btn btn-danger link-to-page float-right">
         I don't wanna cook it
       </a>
     {% else %}
@@ -30,7 +30,7 @@
 
   <ul style="background: #ffffff">
     {% for cook in dish.cooks.all %}
-      <li><a href="#">{{ cook.first_name }} {{ cook.last_name }}</a> ({{ cook.username }})</li></li>
+      <li><a href="{% url 'restaurant:cook-detail' pk=cook.id %}">{{ cook.first_name }} {{ cook.last_name }}</a> ({{ cook.username }})</li></li>
     {% endfor %}
   </ul>
 {% endblock %}

@@ -39,7 +39,7 @@
               <td>
 
                   {% for cook in dish.cooks.all %}
-                    <a href="#">~{{ cook.username }}</a>
+                    <a href="{% url 'restaurant:cook-detail' pk=cook.id %}">~{{ cook.username }}</a>
                   {% endfor %}
 
               </td>

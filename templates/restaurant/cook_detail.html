@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      Username: {{ cook.username }}
+      <a href="#" role="button" class="btn btn-outline-danger float-right">
+        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+      </a>
+
+      <a href="#" role="button" class="btn btn-outline-success float-right">
+        <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+      </a>
+
+  </h1>
+
+  <p><strong>First name:</strong> {{ cook.first_name }}</p>
+  <p><strong>Last name:</strong> {{ cook.last_name }}</p>
+  <p><strong>Years of experience:</strong> {{ cook.years_of_experience }}</p>
+  <p><strong>Is staff:</strong> {% if cook.is_staff %}<i class="fa-solid fa-check"></i>{% else %}<i class="fa-solid fa-xmark"></i>{% endif %}</p>
+  <hr>
+
+  <h4>Dishes: </h4>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="tr-head">
+        <th>Name</th>
+        <th>Category</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dish in cook.dishes.all %}
+{#        <hr>#}
+{#        <p><strong>Dish: </strong> <a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a></p>#}
+{#        <p><strong>Dishtype:</strong> {{ dish.dish_type.name }}</p>#}
+{#        <p><strong>Id:</strong> {{dish.id}}</p>#}
+        <tr>
+          <td><a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a></td>
+          <td><a href="{% url 'restaurant:dish-type-detail' pk=dish.dish_type.id %}">{{ dish.dish_type.name }}</a></td>
+          <td>{{dish.id}}</td>
+          <td></td>
+        </tr>
+
+      {% empty %}
+        <p>No dishes!</p>
+      {% endfor %}
+  </table>
+{% endblock %}
