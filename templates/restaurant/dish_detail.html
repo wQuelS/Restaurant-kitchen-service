@@ -3,16 +3,16 @@
 {% block content %}
   <h1>
     {{ dish.name }}
-    <a href="#" class="btn btn-outline-danger link-to-page float-right">
+    <a href="{% url 'restaurant:dish-delete' pk=dish.id %}" class="btn btn-outline-danger link-to-page float-right">
       <i class="fa fa-trash" aria-hidden="true"></i> Delete
     </a>
 
-    <a href="#" class="btn btn-outline-success link-to-page float-right">
+    <a href="{% url 'restaurant:dish-update' pk=dish.id %}" class="btn btn-outline-success link-to-page float-right">
       <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
     </a>
   </h1>
-  <p>Category of dish: {{ dish.dish_type}}</p>
-  <p>Description: {{ dish.description }}</p>
+  <p><strong>Category of dish:</strong> {{ dish.dish_type}}</p>
+  <p><strong>Description:</strong> {{ dish.description }}</p>
   <h1>
     Cooks:
 

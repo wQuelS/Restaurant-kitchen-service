@@ -114,4 +114,6 @@ def toggle_assign_to_dish(request, pk):
         cook.dishes.remove(pk)
     else:
         cook.dishes.add(pk)
-    return HttpResponseRedirect(reverse_lazy("restaurant:dish-detail", args=[pk]))
+    return HttpResponseRedirect(
+        reverse_lazy("restaurant:dish-detail", args=[pk])
+    )
