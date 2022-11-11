@@ -17,11 +17,11 @@
     Cooks:
 
     {% if dish in user.dishes.all %}
-      <a href="#" class="btn btn-danger link-to-page float-right">
+      <a href="{% url 'restaurant:toggle-dish-assign' pk=dish.id %}" class="btn btn-danger link-to-page float-right">
         I don't wanna cook it
       </a>
     {% else %}
-      <a href="#" class="btn btn-success link-to-page float-right">
+      <a href="{% url 'restaurant:toggle-dish-assign' pk=dish.id %}" class="btn btn-success link-to-page float-right">
         Assign me to this dish
       </a>
     {% endif %}
