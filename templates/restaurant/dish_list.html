@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
   <h1>
     Dishes
@@ -6,6 +7,10 @@
       <i class="fa fa-plus-circle"></i> Add
     </a>
   </h1>
+
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
 
   <table class="table table-hover table-striped">
     <thead>

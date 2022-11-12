@@ -14,7 +14,11 @@ from restaurant.views import (
     DishCreateView,
     DishUpdateView,
     DishDeleteView,
-    toggle_assign_to_dish, CookCreateView, CookExperienceUpdateView, CookDeleteView,
+    toggle_assign_to_dish,
+    CookCreateView,
+    CookExperienceUpdateView,
+    CookDeleteView,
+    no_permission,
 )
 
 urlpatterns = [
@@ -85,22 +89,18 @@ urlpatterns = [
         CookDetailView.as_view(),
         name="cook-detail",
     ),
-    path(
-        "cooks/create/",
-        CookCreateView.as_view(),
-        name="cook-create"
-    ),
+    path("cooks/create/", CookCreateView.as_view(), name="cook-create"),
     path(
         "cooks/<int:pk>/update/",
         CookExperienceUpdateView.as_view(),
-        name="cook-update"
+        name="cook-update",
     ),
     path(
         "cooks/<int:pk>/delete/",
         CookDeleteView.as_view(),
         name="cook-delete",
     ),
-
+    path("no_permission/", no_permission, name="no_permission"),
 ]
 
 app_name = "restaurant"

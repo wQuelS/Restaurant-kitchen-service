@@ -1,11 +1,20 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic
 
-from restaurant.forms import DishForm, CookCreationForm, CookExperienceUpdateForm
+from restaurant.forms import (
+    DishForm,
+    CookCreationForm,
+    CookExperienceUpdateForm,
+    DishSearchForm,
+    CookSearchForm,
+    DishTypeSearchForm,
+)
 from restaurant.models import Dish, DishType, Cook
 
 
@@ -36,6 +45,25 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = "restaurant/dish_type_list.html"
     paginate_by = 5
     queryset = DishType.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DishTypeListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = DishTypeSearchForm(initial={"name": name})
+
+        return context
+
+    def get_queryset(self):
+        form = DishTypeSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+
+        return self.queryset
 
 
 class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
@@ -72,6 +100,25 @@ class DishListView(LoginRequiredMixin, generic.ListView):
     template_name = "restaurant/dish_list.html"
     queryset = Dish.objects.select_related("dish_type")
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DishListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = DishSearchForm(initial={"name": name})
+
+        return context
+
+    def get_queryset(self):
+        form = DishSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+
+        return self.queryset
+
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
@@ -99,6 +146,25 @@ class CookListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     queryset = Cook.objects.all()
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CookListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = CookSearchForm(initial={"name": name})
+
+        return context
+
+    def get_queryset(self):
+        form = CookSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+
+        return self.queryset
+
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cook
@@ -111,12 +177,18 @@ class CookCreateView(generic.CreateView):
     success_url = reverse_lazy("restaurant:cook-list")
 
 
+@method_decorator(
+    staff_member_required(login_url="/no_permission"), name="dispatch"
+)
 class CookExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Cook
     form_class = CookExperienceUpdateForm
     success_url = reverse_lazy("restaurant:cook-list")
 
 
+@method_decorator(
+    staff_member_required(login_url="/no_permission"), name="dispatch"
+)
 class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Cook
     success_url = reverse_lazy("")
@@ -125,12 +197,18 @@ class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
 @login_required
 def toggle_assign_to_dish(request, pk):
     cook = Cook.objects.get(id=request.user.id)
-    if (
-        Dish.objects.get(id=pk) in cook.dishes.all()
-    ):
+    if Dish.objects.get(id=pk) in cook.dishes.all():
         cook.dishes.remove(pk)
     else:
         cook.dishes.add(pk)
     return HttpResponseRedirect(
         reverse_lazy("restaurant:dish-detail", args=[pk])
     )
+
+
+def no_permission(request):
+    cook = Cook.objects.get(id=request.user.id)
+    context = {
+        "cook": cook,
+    }
+    return render(request, "restaurant/no_permission.html", context=context)
