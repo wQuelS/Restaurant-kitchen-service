@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete {{ cook.username }} ({{ cook.first_name }} {{ cook.last_name }})</h1>
+  <br>
+  <p><i>Are you sure about this ?</i></p>
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <input type="submit" value="Yes, Delete" class="btn btn-outline-danger">
+    <a href="{% url 'restaurant:cook-list' %}" class = "btn btn-outline-secondary"> <i class="fa fa-ban" aria-hidden="true"></i> Cancel</a>
+  </form>
+{% endblock %}

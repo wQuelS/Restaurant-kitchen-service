@@ -18,11 +18,12 @@
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon/favicon.ico' %}">
 </head>
 
 <body>
   {% block sidebar %}
-  {% include "includes/sidebar.html" %}
+  {% include "includes/topnav.html" %}
   {% endblock %}
   <div class="container">
     <section style="background-color: #eee; border-radius: 0.5rem;">

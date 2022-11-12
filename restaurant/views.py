@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from restaurant.forms import DishForm
+from restaurant.forms import DishForm, CookCreationForm, CookExperienceUpdateForm
 from restaurant.models import Dish, DishType, Cook
 
 
@@ -105,12 +105,29 @@ class CookDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Cook.objects.prefetch_related("dishes__dish_type")
 
 
+class CookCreateView(generic.CreateView):
+    model = Cook
+    form_class = CookCreationForm
+    success_url = reverse_lazy("restaurant:cook-list")
+
+
+class CookExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Cook
+    form_class = CookExperienceUpdateForm
+    success_url = reverse_lazy("restaurant:cook-list")
+
+
+class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Cook
+    success_url = reverse_lazy("")
+
+
 @login_required
 def toggle_assign_to_dish(request, pk):
     cook = Cook.objects.get(id=request.user.id)
     if (
         Dish.objects.get(id=pk) in cook.dishes.all()
-    ):  # probably could check if car exists
+    ):
         cook.dishes.remove(pk)
     else:
         cook.dishes.add(pk)

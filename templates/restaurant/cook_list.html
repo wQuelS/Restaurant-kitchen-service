@@ -2,6 +2,9 @@
 {% block content %}
   <h1>
     Our Team:
+  <a href="{% url 'restaurant:cook-create' %}" class="float-right btn btn-outline-primary add-button">
+      <i class="fa fa-plus-circle"></i> Add
+  </a>
   </h1>
 
   <table class="table table-hover table-striped">
@@ -37,12 +40,12 @@
                 {{  cook.years_of_experience }}
               </td>
               <td>
-                <a href="#" role="button" class="btn btn-outline-success">
+                <a href="{% url 'restaurant:cook-update' pk=cook.id %}" role="button" class="btn btn-outline-success">
                   <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
                 </a>
               </td>
               <td>
-                <a href="#" role="button" class="btn btn-outline-danger">
+                <a href="{% url 'restaurant:cook-delete' pk=cook.id %}" role="button" class="btn btn-outline-danger">
                   <i class="fa fa-trash" aria-hidden="true"></i> Delete
                 </a>
               </td>

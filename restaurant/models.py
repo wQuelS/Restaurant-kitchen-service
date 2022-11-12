@@ -33,7 +33,7 @@ class Dish(models.Model):
 
 
 class Cook(AbstractUser):
-    years_of_experience = models.IntegerField(null=True)
+    years_of_experience = models.IntegerField()
 
     class Meta:
         verbose_name = "cook"
