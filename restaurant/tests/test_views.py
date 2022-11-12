@@ -91,8 +91,7 @@ class PublicCookTests(TestCase):
 class PrivateCookTests(TestCase):
     def setUp(self) -> None:
         self.user = get_user_model().objects.create(
-            username="teststetadf",
-            password="asdfasdfasdf"
+            username="teststetadf", password="asdfasdfasdf"
         )
         self.client.force_login(self.user)
 
@@ -101,10 +100,7 @@ class PrivateCookTests(TestCase):
         cook = Cook.objects.all()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            list(response.context["cook_list"]),
-            list(cook)
-        )
+        self.assertEqual(list(response.context["cook_list"]), list(cook))
         self.assertTemplateUsed(response, "restaurant/cook_list.html")
 
     def test_create_cook(self):
@@ -114,7 +110,7 @@ class PrivateCookTests(TestCase):
             "password2": "Stronkpas4",
             "years_of_experience": 7,
             "first_name": "TestName",
-            "last_name": "TestSurname"
+            "last_name": "TestSurname",
         }
         self.client.post(reverse("restaurant:cook-create"), data=form_data)
         new_user = get_user_model().objects.get(username=form_data["username"])
@@ -122,6 +118,5 @@ class PrivateCookTests(TestCase):
         self.assertEqual(new_user.first_name, form_data["first_name"])
         self.assertEqual(new_user.last_name, form_data["last_name"])
         self.assertEqual(
-            new_user.years_of_experience,
-            form_data["years_of_experience"]
+            new_user.years_of_experience, form_data["years_of_experience"]
         )

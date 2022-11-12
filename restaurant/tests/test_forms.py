@@ -2,7 +2,11 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from restaurant.forms import CookCreationForm, CookExperienceUpdateForm, DishForm
+from restaurant.forms import (
+    CookCreationForm,
+    CookExperienceUpdateForm,
+    DishForm,
+)
 from restaurant.models import DishType, Dish
 
 
