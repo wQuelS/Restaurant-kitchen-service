@@ -8,7 +8,7 @@ from django.core.validators import (
     MaxValueValidator,
 )
 
-from restaurant.models import Dish, Cook
+from restaurant.models import Dish, Ingredient
 
 
 class CookFormMixin(forms.ModelForm):
@@ -41,6 +41,17 @@ class DishForm(forms.ModelForm):
         fields = "__all__"
 
 
+class IngredientForm(forms.ModelForm):
+    dishes = forms.ModelMultipleChoiceField(
+        queryset=Dish.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Ingredient
+        fields = "__all__"
+
+
 class CookCreationForm(CookFormMixin, UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
@@ -56,28 +67,10 @@ class CookExperienceUpdateForm(forms.ModelForm):
         fields = ("years_of_experience",)
 
 
-class DishSearchForm(forms.Form):
-    name = forms.CharField(
+class SearchForm(forms.Form):
+    search = forms.CharField(
         max_length=100,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by name..."}),
-    )
-
-
-class DishTypeSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=100,
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by name..."}),
-    )
-
-
-class CookSearchForm(forms.Form):
-    username = forms.CharField(
-        max_length=100,
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by username..."}),
+        widget=forms.TextInput(attrs={"placeholder": "Search..."}),
     )

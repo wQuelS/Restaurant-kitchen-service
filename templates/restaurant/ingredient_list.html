@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>
+    Ingredients
+    <a href="{% url 'restaurant:ingredient-create' %}" class="float-right btn btn-outline-primary add-button">
+      <i class="fa fa-plus-circle"></i> Add
+    </a>
+  </h1>
+
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="tr-head">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Number of dishes</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if ingredient_list %}
+      {% for item in ingredient_list %}
+
+        <tr>
+              <td>{{ item.id }}</td>
+              <td>
+                <a href="{% url 'restaurant:ingredient-detail' pk=item.id %}">{{ item.name }}</a>
+              </td>
+              <td>
+                {{ item.dishes.count }}
+              </td>
+              <td>
+                <a href="{% url 'restaurant:ingredient-update' pk=item.id %}" role="button" class="btn btn-outline-success">
+                  <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                </a>
+              </td>
+              <td>
+                <a href="{% url 'restaurant:ingredient-delete' pk=item.id %}" role="button" class="btn btn-outline-danger">
+                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </a>
+              </td>
+          </tr>
+
+      {% endfor %}
+    {% else %}
+      <p> There is no dishes yet</p>
+    {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

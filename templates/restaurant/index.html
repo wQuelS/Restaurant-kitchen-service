@@ -61,9 +61,13 @@
               </div>
             </div>
           </div>
+
+
         </div>
       </section>
     </div>
+  <a href="{% url 'restaurant:ingredient-list' %}" class="btn btn-secondary">Ingredients</a>
+    <hr>
   <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p>
   </main>
 {% endblock %}

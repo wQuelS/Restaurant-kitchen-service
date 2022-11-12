@@ -11,11 +11,10 @@ from restaurant.forms import (
     DishForm,
     CookCreationForm,
     CookExperienceUpdateForm,
-    DishSearchForm,
-    CookSearchForm,
-    DishTypeSearchForm,
+    SearchForm,
+    IngredientForm,
 )
-from restaurant.models import Dish, DishType, Cook
+from restaurant.models import Dish, DishType, Cook, Ingredient
 
 
 @login_required
@@ -49,18 +48,18 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishTypeListView, self).get_context_data(**kwargs)
 
-        name = self.request.GET.get("name", "")
+        name = self.request.GET.get("search", "")
 
-        context["search_form"] = DishTypeSearchForm(initial={"name": name})
+        context["search_form"] = SearchForm(initial={"search": name})
 
         return context
 
     def get_queryset(self):
-        form = DishTypeSearchForm(self.request.GET)
+        form = SearchForm(self.request.GET)
 
         if form.is_valid():
             return self.queryset.filter(
-                name__icontains=form.cleaned_data["name"]
+                name__icontains=form.cleaned_data["search"]
             )
 
         return self.queryset
@@ -103,18 +102,18 @@ class DishListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
 
-        name = self.request.GET.get("name", "")
+        name = self.request.GET.get("search", "")
 
-        context["search_form"] = DishSearchForm(initial={"name": name})
+        context["search_form"] = SearchForm(initial={"search": name})
 
         return context
 
     def get_queryset(self):
-        form = DishSearchForm(self.request.GET)
+        form = SearchForm(self.request.GET)
 
         if form.is_valid():
             return self.queryset.filter(
-                name__icontains=form.cleaned_data["name"]
+                name__icontains=form.cleaned_data["search"]
             )
 
         return self.queryset
@@ -149,18 +148,18 @@ class CookListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CookListView, self).get_context_data(**kwargs)
 
-        name = self.request.GET.get("name", "")
+        name = self.request.GET.get("search", "")
 
-        context["search_form"] = CookSearchForm(initial={"name": name})
+        context["search_form"] = SearchForm(initial={"search": name})
 
         return context
 
     def get_queryset(self):
-        form = CookSearchForm(self.request.GET)
+        form = SearchForm(self.request.GET)
 
         if form.is_valid():
             return self.queryset.filter(
-                username__icontains=form.cleaned_data["username"]
+                username__icontains=form.cleaned_data["search"]
             )
 
         return self.queryset
@@ -191,7 +190,55 @@ class CookExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
 )
 class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Cook
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("restaurant:cook-list")
+
+
+class IngredientListView(generic.ListView):
+    model = Ingredient
+    paginate_by = 5
+    queryset = Ingredient.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(IngredientListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("search", "")
+        context["search_form"] = SearchForm(
+            initial={
+                "search": name,
+            }
+        )
+
+        return context
+
+    def get_queryset(self):
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(
+                name__icontains=form.cleaned_data["search"]
+            )
+
+        return self.queryset
+
+
+class IngredientDetailView(generic.DetailView):
+    model = Ingredient
+
+
+class IngredientCreateView(generic.CreateView):
+    model = Ingredient
+    form_class = IngredientForm
+    success_url = reverse_lazy("restaurant:ingredient-list")
+
+
+class IngredientUpdateView(generic.UpdateView):
+    model = Ingredient
+    form_class = IngredientForm
+    success_url = reverse_lazy("restaurant:ingredient-list")
+
+
+class IngredientDeleteView(generic.DeleteView):
+    model = Ingredient
+    success_url = reverse_lazy("restaurant:ingredient-list")
 
 
 @login_required
