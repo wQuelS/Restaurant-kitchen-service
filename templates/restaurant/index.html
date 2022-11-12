@@ -29,7 +29,8 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
               <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1309_1_1436535868.jpg" class="img-fluid">
+                <img style="display: block; -webkit-user-select: none; margin: auto; cursor: zoom-in; background-color: hsl(0, 0%, 90%); transition: background-color 300ms;"
+                     src="{% static 'images/food.jpeg' %}" class="img-fluid">
                 <a href="#!">
                   <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                 </a>
@@ -37,7 +38,7 @@
               <div class="card-body">
                 <h5 class="card-title">Dishes: </h5>
                 <p class="card-text">
-                  Number of dishes our chiefs cook: {{ num_dishes }}
+                  Total number of dishes: {{ num_dishes }}
                 </p>
                 <a href="{% url 'restaurant:dish-list' %}" class="btn btn-primary">View</a>
               </div>
@@ -47,7 +48,7 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
               <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://th.bing.com/th/id/OIP.P-hPs_2R0dHrCEqRc-sBjQHaHa?pid=ImgDet&rs=1" class="img-fluid" />
+                <img src="{% static 'images/categories.jpg' %}" class="img-fluid" />
                 <a href="#!">
                   <div class="mask" style="background-color: rgba(251, 251, 251, 0.55);"></div>
                 </a>
@@ -55,7 +56,7 @@
               <div class="card-body">
                 <h5 class="card-title">Categories of dishes</h5>
                 <p class="card-text">
-                  Number of dish categories: {{ num_dish_types }}
+                  Dishes by categories: {{ num_dish_types }}
                 </p>
                 <a href="{% url 'restaurant:dish-type-list' %}" class="btn btn-primary">View</a>
               </div>
