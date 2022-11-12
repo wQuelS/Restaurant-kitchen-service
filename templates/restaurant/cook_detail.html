@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>
-      Username: {{ cook.username }}
+      {{ cook.username }}
       <a href="{% url 'restaurant:cook-delete' pk=cook.id %}" role="button" class="btn btn-outline-danger float-right">
         <i class="fa fa-trash" aria-hidden="true"></i> Delete
       </a>

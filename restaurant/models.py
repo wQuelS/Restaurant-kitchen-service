@@ -36,11 +36,9 @@ class Cook(AbstractUser):
     years_of_experience = models.IntegerField(null=True)
 
     class Meta:
+        ordering = ["username"]
         verbose_name = "cook"
         verbose_name_plural = "cooks"
-
-    def get_absolute_url(self):
-        return reverse("restaurant:cook-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
