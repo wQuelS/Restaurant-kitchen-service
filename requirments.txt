@@ -13,3 +13,5 @@ python-decouple==3.6
 sqlparse==0.4.3
 tomli==2.0.1
 tzdata==2022.6
+dj_database_url==1.0.0
+psycopg2==2.9.5
