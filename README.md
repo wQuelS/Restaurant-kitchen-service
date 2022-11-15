@@ -34,9 +34,6 @@ python manage.py runserver # starts Django Server
 * Security for all data
 
 
-## DB Structure
-![DB Structure](db.jpg)
-
 ## Demo pages
 
 ![Demo Interface](demo.jpg)
