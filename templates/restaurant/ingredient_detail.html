@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Dishes with {{ ingredient.name }}
+    <a href="{% url 'restaurant:ingredient-delete' pk=ingredient.id %}" class="btn btn-outline-danger link-to-page float-right">
+      <i class="fa fa-trash" aria-hidden="true"></i> Delete
+    </a>
+
+    <a href="{% url 'restaurant:ingredient-update' pk=ingredient.id %}" class="btn btn-outline-success link-to-page float-right">
+      <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+    </a>
+  </h1>
+  <hr>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="tr-head">
+        <th>Name</th>
+        <th>Category of dish</th>
+        <th>Number of dishes</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if ingredient.dishes.all %}
+      {% for dish in ingredient.dishes.all %}
+
+        <tr>
+          <td>
+            <a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a>
+          </td>
+          <td>{{ dish.dish_type.name }}</td>
+          <td>
+            {{ dish.cooks.count }}
+          </td>
+        </tr>
+
+      {% endfor %}
+    {% else %}
+      <p> There are no ingredients yet</p>
+    {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

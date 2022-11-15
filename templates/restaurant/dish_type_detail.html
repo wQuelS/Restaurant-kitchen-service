@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% if dish_type_list.dish_set.all %}
+    <h1>
+    {{ dish_type_list.dish_set.count }} meal{{ dish_type_list.dish_set.count|pluralize }} in {{ dish_type_list.name }}
+  </h1>
+    <table class="table table-hover table-striped">
+
+      <thead>
+        <tr class="tr-head">
+          <th>ID</th>
+          <th>Name</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+          {% for dish in dish_type_list.dish_set.all %}
+            <tr>
+
+              <td>
+                {{ dish.id }}
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-detail' pk=dish.id %}">{{ dish.name }}</a>
+              </td>
+              <td>
+                  <a href="{% url 'restaurant:dish-update' pk=dish.id %}" role="button" class="btn btn-outline-success">
+                    <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                  </a>
+                </td>
+                <td>
+                  <a href="{% url 'restaurant:dish-delete' pk=dish.id %}" role="button" class="btn btn-outline-danger">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                  </a>
+                </td>
+
+            </tr>
+          {% endfor %}
+
+    {% else %}
+      <p>There are no dishes in {{ dish_type_list.name }}</p>
+      <a href="{% url 'restaurant:dish-type-list' %}" role="button" class="btn btn-outline-success">
+        <i class="fa fa-undo" aria-hidden="true"></i> Go Back
+      </a>
+    {% endif %}
+
+    </tbody>
+
+  </table>
+
+
+{% endblock %}

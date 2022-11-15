@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3 style="color: red">Oops, access denied. Seems like you don't have permission for this action.</h3>
+  <a href="{% url 'restaurant:cook-list' %}"><i class="fa-sharp fa-solid fa-rotate-left"></i> Go back</a>
+{% endblock %}

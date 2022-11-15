@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>
+    Types of dish
+    <a href="{% url 'restaurant:dish-type-create' %}" class="float-right btn btn-outline-primary add-button">
+      <i class="fa fa-plus-circle"></i> Add
+    </a>
+  </h1>
+
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="tr-head">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if dish_type_list%}
+      {% for type in dish_type_list %}
+
+        <tr>
+              <td>
+                {{ type.id }}
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-type-detail' pk=type.id %}">{{ type.name }}</a>
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-type-update' pk=type.id %}" role="button" class="btn btn-outline-success">
+                  <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                </a>
+              </td>
+              <td>
+                <a href="{% url 'restaurant:dish-type-delete' pk=type.id %}" role="button" class="btn btn-outline-danger">
+                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </a>
+              </td>
+          </tr>
+
+      {% endfor %}
+    {% else %}
+      <p> There is no dish types</p>
+    {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content">
+    <div class="container div-content">
+      <!--Section: Content-->
+     <section class="text-center">
+
+        <div class="row">
+          <div class="col-lg-4 col-md-12">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img style="display: block; -webkit-user-select: none; margin: auto; cursor: zoom-in; background-color: hsl(0, 0%, 90%); transition: background-color 300ms;"
+                     src="{% static 'images/chief.jpg' %}"  class="img-fluid">
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Chiefs:</h5>
+                <p class="card-text">
+                  Amount of cooks: {{ num_cooks }}
+                </p>
+                <a href="{% url 'restaurant:cook-list' %}" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img style="display: block; -webkit-user-select: none; margin: auto; cursor: zoom-in; background-color: hsl(0, 0%, 90%); transition: background-color 300ms;"
+                     src="{% static 'images/food.jpeg' %}" class="img-fluid">
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Dishes: </h5>
+                <p class="card-text">
+                  Total number of dishes: {{ num_dishes }}
+                </p>
+                <a href="{% url 'restaurant:dish-list' %}" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="{% static 'images/categories.jpg' %}" class="img-fluid" />
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.55);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Categories of dishes</h5>
+                <p class="card-text">
+                  Dishes by categories: {{ num_dish_types }}
+                </p>
+                <a href="{% url 'restaurant:dish-type-list' %}" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+    </div>
+  <a href="{% url 'restaurant:ingredient-list' %}" class="btn btn-secondary">Ingredients</a>
+    <hr>
+  <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p>
+  </main>
+{% endblock %}
