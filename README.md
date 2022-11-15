@@ -4,7 +4,12 @@ Django Project for managing restaurant kitchen.
 
 ## Check it out!
 
-[Kitchen service project]()
+[Kitchen service project](https://restaurant-kitchen-service-rlyr.onrender.com/)
+
+```
+login: butcher12
+password: Asdf1234_
+```
 
 ## Installation
 
