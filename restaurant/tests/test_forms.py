@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from restaurant.forms import (
     CookCreationForm,
-    CookExperienceUpdateForm,
+    CookUpdateForm,
     DishForm,
 )
 from restaurant.models import DishType, Dish
@@ -38,7 +38,7 @@ class FormsTest(TestCase):
 
     def test_cook_update(self):
         data = {"years_of_experience": 8}
-        form = CookExperienceUpdateForm(data=data)
+        form = CookUpdateForm(data=data)
 
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data, data)

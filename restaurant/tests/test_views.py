@@ -7,6 +7,7 @@ from restaurant.models import DishType, Dish, Cook
 DISH_TYPE_LIST_URL = reverse("restaurant:dish-type-list")
 DISH_LIST_URL = reverse("restaurant:dish-list")
 COOK_CREATE = reverse("restaurant:cook-create")
+COOK_LIST_URL = reverse("restaurant:cook-list")
 
 
 class PublicDishTypeTest(TestCase):
@@ -44,6 +45,14 @@ class PrivateDishTypeTest(TestCase):
             list(response.context["dish_type_list"]), list(dish_type)
         )
 
+    def test_dish_search_test(self):
+        response = self.client.get(DISH_TYPE_LIST_URL + "?name=g")
+
+        self.assertEqual(
+            list(response.context["dish_type_list"]),
+            list(DishType.objects.filter(name__icontains="g")),
+        )
+
     def test_correct_template_used(self):
         response = self.client.get(DISH_TYPE_LIST_URL)
         self.assertTemplateUsed(response, "restaurant/dish_type_list.html")
@@ -75,6 +84,14 @@ class PrivateDishTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["dish_list"]), list(dishes))
+
+    def test_dish_search_test(self):
+        response = self.client.get(DISH_LIST_URL + "?name=p")
+
+        self.assertEqual(
+            list(response.context["dish_list"]),
+            list(Dish.objects.filter(name__icontains="p")),
+        )
 
     def test_correct_template_used(self):
         response = self.client.get(DISH_LIST_URL)
@@ -119,4 +136,12 @@ class PrivateCookTests(TestCase):
         self.assertEqual(new_user.last_name, form_data["last_name"])
         self.assertEqual(
             new_user.years_of_experience, form_data["years_of_experience"]
+        )
+
+    def test_cook_search_test(self):
+        response = self.client.get(COOK_LIST_URL + "?username=m")
+
+        self.assertEqual(
+            list(response.context["cook_list"]),
+            list(Cook.objects.filter(username__icontains="m")),
         )
