@@ -43,16 +43,24 @@
               <td>
                 {{  cook.years_of_experience }}
               </td>
-              <td>
-                <a href="{% url 'restaurant:cook-update' pk=cook.id %}" role="button" class="btn btn-outline-success">
-                  <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
-                </a>
-              </td>
-              <td>
-                <a href="{% url 'restaurant:cook-delete' pk=cook.id %}" role="button" class="btn btn-outline-danger">
-                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                </a>
-              </td>
+
+                <td>
+                  {% if request.user.username == cook.username or user.is_superuser %}
+                    <a href="{% url 'restaurant:cook-update' pk=cook.id %}" role="button" class="btn btn-outline-success">
+                      <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                    </a>
+                  {% else %}
+                    <a href="{% url 'restaurant:no_permission' %}" role="button" class="btn btn-outline-success">
+                      <i class="fa fa-pencil-square" aria-hidden="true"></i> Update
+                    </a>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'restaurant:cook-delete' pk=cook.id %}" role="button" class="btn btn-outline-danger">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                  </a>
+                </td>
+
           </tr>
 
       {% endfor %}

@@ -62,10 +62,14 @@ class CookCreationForm(CookFormMixin, UserCreationForm):
         )
 
 
-class CookExperienceUpdateForm(forms.ModelForm):
+class CookUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("years_of_experience",)
+        fields = (
+            "first_name",
+            "last_name",
+            "years_of_experience",
+        )
 
 
 class SearchForm(forms.Form):

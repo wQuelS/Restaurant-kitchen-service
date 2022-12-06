@@ -1,8 +1,8 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic
@@ -10,7 +10,7 @@ from django.views import generic
 from restaurant.forms import (
     DishForm,
     CookCreationForm,
-    CookExperienceUpdateForm,
+    CookUpdateForm,
     SearchForm,
     IngredientForm,
 )
@@ -69,7 +69,7 @@ class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
     model = DishType
     context_object_name = "dish_type_list"
     template_name = "restaurant/dish_type_detail.html"
-    queryset = DishType.objects.prefetch_related("dish_set").all()
+    queryset = DishType.objects.prefetch_related("dish_set")
 
 
 class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
@@ -176,13 +176,13 @@ class CookCreateView(generic.CreateView):
     success_url = reverse_lazy("restaurant:cook-list")
 
 
-@method_decorator(
-    staff_member_required(login_url="/no_permission"), name="dispatch"
-)
-class CookExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
+class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Cook
-    form_class = CookExperienceUpdateForm
+    form_class = CookUpdateForm
     success_url = reverse_lazy("restaurant:cook-list")
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 @method_decorator(

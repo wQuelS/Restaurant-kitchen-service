@@ -16,7 +16,6 @@ from restaurant.views import (
     DishDeleteView,
     toggle_assign_to_dish,
     CookCreateView,
-    CookExperienceUpdateView,
     CookDeleteView,
     no_permission,
     IngredientListView,
@@ -24,6 +23,7 @@ from restaurant.views import (
     IngredientCreateView,
     IngredientDeleteView,
     IngredientDetailView,
+    CookUpdateView,
 )
 
 urlpatterns = [
@@ -97,7 +97,7 @@ urlpatterns = [
     path("cooks/create/", CookCreateView.as_view(), name="cook-create"),
     path(
         "cooks/<int:pk>/update/",
-        CookExperienceUpdateView.as_view(),
+        CookUpdateView.as_view(),
         name="cook-update",
     ),
     path(
