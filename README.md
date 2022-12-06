@@ -7,8 +7,8 @@ Django Project for managing restaurant kitchen.
 [Kitchen service project](https://restaurant-kitchen-service-rlyr.onrender.com/)
 
 ```
-login: butcher12
-password: Asdf1234_
+login: anothertest
+password: Zxcvvfr_
 ```
 
 ## Installation
